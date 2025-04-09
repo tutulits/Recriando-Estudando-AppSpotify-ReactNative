@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import { useGoogleAuth } from './componentes/GoogleSignIn';
+
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -16,10 +18,12 @@ export default function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowSplash(false); // depois mostra a Home
+      setShowSplash(false); 
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
+
+  const { promptAsync } = useGoogleAuth();
 
 
   if (showSplash) {
@@ -43,7 +47,7 @@ export default function App() {
 
       <Text style={styles.titulo}>Crie uma conta Spotify gratuita!</Text>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => promptAsync()}>
         <View style={styles.bordaGoogle}>
           <Image source={require('./assets/google.png')} style={styles.img} />
           <Text style={styles.textoBotao}>Entrar com Google</Text>

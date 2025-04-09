@@ -1,20 +1,17 @@
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
-import { firebaseConfig } from './firebase'; // seu arquivo de config Firebase
+import { app } from '../componentes/Firebase';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-
+const auth = getAuth(app); 
 export function useGoogleAuth() {
   const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: '473635873610-8p1j5rqujsqhsdnh4dbu0gk8ug6jjuh.apps.googleusercontent.com',
     androidClientId: 'SEU_CLIENT_ID_ANDROID',
     iosClientId: 'SEU_CLIENT_ID_IOS',
-    expoClientId: 'SEU_CLIENT_ID_EXPO',
   });
 
   useEffect(() => {
